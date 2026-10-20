@@ -13,40 +13,77 @@
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
         }
-        
-        /* Custom Animations & Transitions */
+
+        /* Primary Custom Colors */
+        .text-custom-main {
+            color: #73022c;
+        }
+
+        .bg-custom-card {
+            background-color: #fff5e1;
+        }
+
+        .border-custom-main {
+            border-color: #73022c;
+        }
+
+        /* Hover & Active Button Effects */
+        .interactive-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .interactive-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .interactive-btn:active {
+            transform: translateY(1px) scale(0.96);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Size Selection Buttons */
         .size-btn {
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s ease;
+            color: #73022c;
+            border-color: #73022c;
         }
+
+        .size-btn:hover {
+            background-color: rgba(115, 2, 44, 0.1);
+        }
+
         .size-btn.active {
-            background-color: #25d366;
-            color: white;
-            border-color: #25d366;
+            background-color: #73022c;
+            color: #fff5e1;
             transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-        }
-        
-        .whatsapp-btn {
-            transition: all 0.3s ease;
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-        }
-        
-        .whatsapp-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 3px 8px rgba(115, 2, 44, 0.25);
         }
 
-        .details-btn {
-            transition: all 0.3s ease;
+        /* Official WhatsApp Original Color */
+        .btn-whatsapp-original {
+            background-color: #25D366;
+            color: #ffffff;
         }
 
-        .details-btn:hover {
-            transform: translateY(-2px);
-            background-color: #3b82f6;
-            color: white;
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        .btn-whatsapp-original:hover {
+            background-color: #20bd5a;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.35);
+        }
+
+        /* Details Yellow Button */
+        .btn-details {
+            background-color: #facc15;
+            color: #73022c;
+        }
+
+        .btn-details:hover {
+            background-color: #eab308;
+            box-shadow: 0 5px 15px rgba(234, 179, 8, 0.35);
         }
 
         .badge-pulse {
@@ -55,199 +92,127 @@
 
         @keyframes pulse-subtle {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.9; transform: scale(1.03); }
-        }
-
-        /* Modal Animation */
-        .modal {
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .modal-content {
-            transition: transform 0.3s ease;
-        }
-        .modal.hidden-modal {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-        .modal.hidden-modal .modal-content {
-            transform: scale(0.9);
+            50% { opacity: 0.92; transform: scale(1.03); }
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4 md:p-8">
+<body class="min-h-screen flex items-center justify-center p-2">
 
-    <!-- Card Container -->
-    <div class="bg-white rounded-3xl shadow-2xl overflow-hidden max-w-sm w-full border border-gray-100 relative">
+    <!-- Mini Card Container (Ultra Compact: max-w-[270px]) -->
+    <div class="bg-custom-card rounded-2xl shadow-lg overflow-hidden max-w-[270px] w-full border border-amber-200/70 relative transition-all duration-300">
         
-        <!-- Product Image & Badge Header -->
-        <div class="relative w-full h-72 bg-gray-100 overflow-hidden group">
-            <!-- Product Image -->
+        <!-- Product Image & Badges -->
+        <div class="relative w-full h-40 bg-amber-100/50 overflow-hidden group">
             <img 
                 id="product-image"
                 src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800&auto=format&fit=crop" 
                 alt="تيشيرت أنيق" 
                 class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
-                onerror="this.src='https://placehold.co/600x600/e2e8f0/1e293b?text=صورة+المنتج'"
+                onerror="this.src='https://placehold.co/400x400/fff5e1/73022c?text=صورة+المنتج'"
             >
 
-            <!-- Product ID Badge (Top Right) -->
-            <div class="absolute top-4 right-4 bg-amber-400 text-gray-900 font-extrabold text-xs px-3.5 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 border border-amber-300 z-10">
-                <i class="fa-solid fa-tag text-xs"></i>
-                <span>رقم المنتج: #01</span>
+            <!-- Product ID Badge (#01) -->
+            <div class="absolute top-2.5 right-2.5 bg-amber-300 text-custom-main font-black text-[10px] px-2 py-0.5 rounded-full shadow-sm flex items-center gap-1 border border-amber-400 z-10">
+                <i class="fa-solid fa-tag text-[9px]"></i>
+                <span>#01</span>
             </div>
 
-            <!-- Discount Badge (Top Left) -->
-            <div class="absolute top-4 left-4 bg-red-600 text-white font-bold text-xs px-3 py-1 rounded-full shadow-md badge-pulse z-10">
+            <!-- Discount Badge -->
+            <div class="absolute top-2.5 left-2.5 bg-red-600 text-white font-extrabold text-[9px] px-2 py-0.5 rounded-full shadow-sm badge-pulse z-10">
                 تخفيض -33%
             </div>
-
-            <!-- Overlay Gradient -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-60"></div>
         </div>
 
         <!-- Card Body -->
-        <div class="p-6">
+        <div class="p-3">
             
-            <!-- Category / Subtitle -->
-            <div class="text-xs font-semibold text-emerald-600 mb-1 flex items-center gap-1">
-                <i class="fa-solid fa-circle-check text-[10px]"></i>
+            <!-- Category / Stock status -->
+            <div class="text-[10px] font-bold text-emerald-700 mb-0.5 flex items-center gap-1">
+                <i class="fa-solid fa-circle-check text-[8px]"></i>
                 <span>متوفر في المخزون - توصيل سريع</span>
             </div>
 
             <!-- Product Title -->
-            <h2 class="text-xl font-bold text-gray-800 mb-3 leading-snug">
+            <h2 class="text-xs font-extrabold text-custom-main mb-1.5 leading-tight">
                 قميص قطني فاخر عصري (Unisex)
             </h2>
 
             <!-- Price Section -->
-            <div class="flex items-baseline gap-3 mb-5 bg-emerald-50/60 p-3 rounded-2xl border border-emerald-100/60">
-                <!-- New Price -->
-                <span class="text-3xl font-extrabold text-emerald-600">200 <span class="text-lg font-bold">DH</span></span>
-                <!-- Old Price -->
-                <span class="text-sm font-semibold text-gray-400 line-through">300 DH</span>
-                <!-- Savings -->
-                <span class="mr-auto text-xs font-bold text-red-600 bg-red-100 px-2.5 py-1 rounded-lg">وفر 100 DH</span>
+            <div class="flex items-center gap-1.5 mb-2.5 bg-amber-100/60 p-1.5 rounded-lg border border-amber-200/60">
+                <span class="text-lg font-black text-custom-main">200 <span class="text-[10px] font-bold">DH</span></span>
+                <span class="text-[10px] font-semibold text-gray-400 line-through">300 DH</span>
+                <span class="mr-auto text-[9px] font-extrabold text-red-600 bg-red-100 px-1.5 py-0.5 rounded">وفر 100 DH</span>
             </div>
 
             <!-- Sizes Selection -->
-            <div class="mb-5">
-                <div class="flex justify-between items-center mb-2.5">
-                    <label class="text-sm font-bold text-gray-700 flex items-center gap-1.5">
-                        <i class="fa-solid fa-ruler-horizontal text-gray-400"></i>
-                        اختر الحجم المناسب:
+            <div class="mb-2.5">
+                <div class="flex justify-between items-center mb-1">
+                    <label class="text-[11px] font-bold text-custom-main flex items-center gap-1">
+                        <i class="fa-solid fa-ruler-horizontal text-amber-800/60 text-[10px]"></i>
+                        الحجم:
                     </label>
-                    <span id="selected-size-label" class="text-xs font-bold text-emerald-600 bg-emerald-100 px-2 py-0.5 rounded-md">M</span>
+                    <span id="selected-size-label" class="text-[9px] font-black text-custom-main bg-amber-200/70 px-1.5 py-0.5 rounded">XXL</span>
                 </div>
                 
-                <div class="grid grid-cols-5 gap-2" id="sizes-container">
-                    <button type="button" onclick="selectSize('S')" class="size-btn border-2 border-gray-200 rounded-xl py-2 text-sm font-bold text-gray-600 hover:border-emerald-400 focus:outline-none">S</button>
-                    <button type="button" onclick="selectSize('M')" class="size-btn active border-2 border-gray-200 rounded-xl py-2 text-sm font-bold text-gray-600 hover:border-emerald-400 focus:outline-none">M</button>
-                    <button type="button" onclick="selectSize('L')" class="size-btn border-2 border-gray-200 rounded-xl py-2 text-sm font-bold text-gray-600 hover:border-emerald-400 focus:outline-none">L</button>
-                    <button type="button" onclick="selectSize('XL')" class="size-btn border-2 border-gray-200 rounded-xl py-2 text-sm font-bold text-gray-600 hover:border-emerald-400 focus:outline-none">XL</button>
-                    <button type="button" onclick="selectSize('XXL')" class="size-btn border-2 border-gray-200 rounded-xl py-2 text-sm font-bold text-gray-600 hover:border-emerald-400 focus:outline-none">XXL</button>
+                <div class="grid grid-cols-5 gap-1" id="sizes-container">
+                    <button type="button" onclick="selectSize('S')" class="size-btn border rounded-md py-0.5 text-[10px] font-extrabold focus:outline-none">S</button>
+                    <button type="button" onclick="selectSize('M')" class="size-btn border rounded-md py-0.5 text-[10px] font-extrabold focus:outline-none">M</button>
+                    <button type="button" onclick="selectSize('L')" class="size-btn border rounded-md py-0.5 text-[10px] font-extrabold focus:outline-none">L</button>
+                    <button type="button" onclick="selectSize('XL')" class="size-btn border rounded-md py-0.5 text-[10px] font-extrabold focus:outline-none">XL</button>
+                    <button type="button" onclick="selectSize('XXL')" class="size-btn active border rounded-md py-0.5 text-[10px] font-extrabold focus:outline-none">XXL</button>
                 </div>
             </div>
 
-            <!-- Optional Customer Info Fields -->
-            <div class="space-y-2.5 mb-6">
-                <div>
-                    <input type="text" id="cust-name" placeholder="الاسم الكامل (اختياري)" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all">
-                </div>
-                <div>
-                    <input type="text" id="cust-city" placeholder="المدينة / العنوان (اختياري)" class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all">
-                </div>
+            <!-- Optional Inputs -->
+            <div class="space-y-1.5 mb-3">
+                <input type="text" id="cust-name" placeholder="الاسم الكامل" class="w-full text-[10px] px-2.5 py-1.5 rounded-lg border border-amber-200 bg-white/80 focus:bg-white focus:border-custom-main focus:ring-1 focus:ring-[#73022c] outline-none transition-all placeholder:text-gray-400">
+                <input type="text" id="cust-city" placeholder="المدينة / العنوان" class="w-full text-[10px] px-2.5 py-1.5 rounded-lg border border-amber-200 bg-white/80 focus:bg-white focus:border-custom-main focus:ring-1 focus:ring-[#73022c] outline-none transition-all placeholder:text-gray-400">
             </div>
 
-            <!-- Action Buttons Container (WhatsApp + Details) -->
-            <div class="grid grid-cols-12 gap-2">
-                <!-- WhatsApp Order Button (Takes 8 columns) -->
+            <!-- Equal Sized Action Buttons -->
+            <div class="grid grid-cols-2 gap-1.5">
+                <!-- WhatsApp Button (Original WhatsApp Green #25D366) -->
                 <button 
                     onclick="sendWhatsAppOrder()" 
-                    class="col-span-8 whatsapp-btn text-white font-bold py-3.5 px-3 rounded-2xl flex items-center justify-center gap-2 text-sm shadow-lg focus:outline-none active:scale-95"
+                    class="btn-whatsapp-original interactive-btn font-extrabold py-2 px-1 rounded-lg flex items-center justify-center gap-1 text-[11px] focus:outline-none"
                 >
-                    <i class="fa-brands fa-whatsapp text-xl"></i>
-                    <span>طلب عبر الواتساب</span>
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>طلب الواتساب</span>
                 </button>
 
-                <!-- Product Details Button (Takes 4 columns) -->
+                <!-- Product Details Button -->
                 <button 
-                    onclick="openDetailsModal()" 
-                    class="col-span-4 details-btn bg-gray-100 text-gray-700 border border-gray-200 font-bold py-3.5 px-2 rounded-2xl flex items-center justify-center gap-1.5 text-xs shadow-sm focus:outline-none active:scale-95"
+                    onclick="goToDetails()" 
+                    class="btn-details interactive-btn font-extrabold py-2 px-1 rounded-lg flex items-center justify-center gap-1 text-[11px] focus:outline-none"
                 >
-                    <i class="fa-solid fa-circle-info text-sm"></i>
+                    <i class="fa-solid fa-circle-info text-[10px]"></i>
                     <span>التفاصيل</span>
                 </button>
             </div>
 
-            <!-- Guarantee Note -->
-            <p class="text-center text-[11px] text-gray-400 mt-3 flex items-center justify-center gap-1">
-                <i class="fa-solid fa-truck-fast"></i>
+            <!-- Delivery Note -->
+            <p class="text-center text-[9px] font-semibold text-amber-900/70 mt-2 flex items-center justify-center gap-1">
+                <i class="fa-solid fa-truck-fast text-[8px]"></i>
                 الدفع عند الاستلام والتوصيل لجميع المدن
             </p>
 
         </div>
     </div>
 
-    <!-- Product Details Modal (Popup Window) -->
-    <div id="details-modal" class="modal hidden-modal fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="modal-content bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl relative border border-gray-100">
-            <!-- Close Button -->
-            <button onclick="closeDetailsModal()" class="absolute top-4 left-4 text-gray-400 hover:text-gray-700 bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center transition-all">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-
-            <!-- Modal Title -->
-            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                <i class="fa-solid fa-list-check text-emerald-600"></i>
-                <span>تفاصيل المنتوج (#01)</span>
-            </h3>
-
-            <!-- Details List -->
-            <ul class="space-y-3 text-xs text-gray-600 mb-6 border-t border-b border-gray-100 py-4">
-                <li class="flex items-center justify-between">
-                    <span class="font-bold text-gray-700">القماش:</span>
-                    <span class="bg-gray-100 px-2.5 py-1 rounded-md text-gray-800 font-semibold">100% قطن ممتازة</span>
-                </li>
-                <li class="flex items-center justify-between">
-                    <span class="font-bold text-gray-700">الجودة:</span>
-                    <span class="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-md font-bold">عالية (Premium)</span>
-                </li>
-                <li class="flex items-center justify-between">
-                    <span class="font-bold text-gray-700">المقاسات المتوفرة:</span>
-                    <span>S - M - L - XL - XXL</span>
-                </li>
-                <li class="flex items-center justify-between">
-                    <span class="font-bold text-gray-700">تعليمات الغسيل:</span>
-                    <span>غسيل آلي 30 درجة</span>
-                </li>
-                <li class="flex items-start gap-2 pt-1 text-gray-500">
-                    <i class="fa-solid fa-shield-halved text-emerald-500 mt-0.5"></i>
-                    <span>ضمان المعاينة قبل الدفع عند الاستلام.</span>
-                </li>
-            </ul>
-
-            <!-- Modal Action Button -->
-            <button onclick="closeDetailsModal()" class="w-full bg-gray-800 text-white font-bold py-2.5 rounded-xl text-xs hover:bg-gray-900 transition-all">
-                إغلاق النافذة
-            </button>
-        </div>
-    </div>
-
     <!-- JavaScript Logic -->
     <script>
-        // Store selected size (Default: M)
-        let selectedSize = 'M';
-        const whatsappNumber = '212771642822'; // Format: International code + 771642822
+        // Default selected size: XXL
+        let selectedSize = 'XXL';
+        const whatsappNumber = '212771642822';
+        
+        // Link for details page
+        const detailsUrl = 'index.html';
 
-        // Function to handle size selection
+        // Function to select size
         function selectSize(size) {
             selectedSize = size;
-            
-            // Update selected label display
             document.getElementById('selected-size-label').innerText = size;
 
-            // Remove active class from all buttons
             const buttons = document.querySelectorAll('.size-btn');
             buttons.forEach(btn => {
                 if (btn.innerText === size) {
@@ -258,53 +223,27 @@
             });
         }
 
-        // Function to construct WhatsApp URL and trigger click
+        // WhatsApp Order Link Generator with required formatting
         function sendWhatsAppOrder() {
-            const nameInput = document.getElementById('cust-name').value.trim();
-            const cityInput = document.getElementById('cust-city').value.trim();
+            const nameInput = document.getElementById('cust-name').value.trim() || 'غير محدد';
+            const cityInput = document.getElementById('cust-city').value.trim() || 'غير محدد';
 
-            // Product Fixed Specs
             const productId = "#01";
             const productPrice = "200 DH";
 
-            // Prepare dynamic message
-            let message = `السلام عليكم، أريد طلب المنتج رقم: ${productId} | الحجم المختار: ${selectedSize} | السعر: ${productPrice}.`;
+            // Formatted message with Markdown for WhatsApp
+            const message = `*السلام عليكم،*\n*أريد طلب المنتج رقم: ${productId}*\n> الحجم المختار: ${selectedSize}\n> السعر: ${productPrice}.\n> الاسم: ${nameInput}\n> المدينة/العنوان: ${cityInput}\n*يرجى تأكيد الطلب.*`;
 
-            // Append optional details if filled
-            if (nameInput) {
-                message += `\n- الاسم: ${nameInput}`;
-            }
-            if (cityInput) {
-                message += `\n- المدينة/العنوان: ${cityInput}`;
-            }
-
-            message += `\nيرجى تأكيد الطلب.`;
-
-            // Encode text for URL safely
             const encodedMessage = encodeURIComponent(message);
-
-            // Construct WhatsApp link
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-            // Open WhatsApp in a new tab/window
             window.open(whatsappUrl, '_blank');
         }
 
-        // Modal Functions
-        function openDetailsModal() {
-            document.getElementById('details-modal').classList.remove('hidden-modal');
+        // Redirect to product details page
+        function goToDetails() {
+            window.location.href = detailsUrl;
         }
-
-        function closeDetailsModal() {
-            document.getElementById('details-modal').classList.add('hidden-modal');
-        }
-
-        // Close modal when clicking outside content
-        document.getElementById('details-modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeDetailsModal();
-            }
-        });
     </script>
 </body>
 </html>
